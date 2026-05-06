@@ -134,6 +134,50 @@ function ScrollProgress() {
   return <motion.div className="scroll-progress" style={{ scaleX }} />;
 }
 
+function BackgroundFX() {
+  return (
+    <div className="background-fx" aria-hidden="true">
+      <div className="aurora-field" />
+      <div className="reactor-core">
+        <span />
+        <span />
+        <span />
+      </div>
+      <div className="orbit-system">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <span key={index} style={{ '--i': index }} />
+        ))}
+      </div>
+      <div className="energy-grid" />
+      <div className="laser-stack">
+        {Array.from({ length: 7 }).map((_, index) => (
+          <span key={index} style={{ '--i': index }} />
+        ))}
+      </div>
+      <div className="data-rain">
+        {Array.from({ length: 18 }).map((_, index) => (
+          <span key={index} style={{ '--i': index }} />
+        ))}
+      </div>
+      <div className="particle-field">
+        {Array.from({ length: 42 }).map((_, index) => (
+          <span
+            key={index}
+            style={{
+              '--i': index,
+              '--x': `${(index * 37) % 100}%`,
+              '--y': `${(index * 61) % 100}%`,
+              '--s': `${0.65 + (index % 5) * 0.22}`,
+              '--d': `${index * -0.7}s`,
+            }}
+          />
+        ))}
+      </div>
+      <div className="vignette" />
+    </div>
+  );
+}
+
 function DeferredScene({ children, fallback }) {
   const [ready, setReady] = useState(false);
 
@@ -648,6 +692,7 @@ function App() {
     <>
       {!reduced && ENABLE_SMOOTH_SCROLL && <SmoothScroll />}
       <ScrollProgress />
+      <BackgroundFX />
       {ENABLE_CUSTOM_CURSOR && <Cursor />}
       <Navbar />
       <main>

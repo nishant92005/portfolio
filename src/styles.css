@@ -36,6 +36,11 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+#root {
+  position: relative;
+  isolation: isolate;
+}
+
 @media (pointer: fine) {
   body,
   a,
@@ -70,6 +75,254 @@ select {
   background: linear-gradient(90deg, var(--green), var(--violet));
   box-shadow: 0 0 18px rgba(0, 255, 136, 0.8);
   transform-origin: 0 50%;
+}
+
+.background-fx {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(240, 240, 240, 0.08), transparent 34rem),
+    linear-gradient(180deg, #050706 0%, #09090c 48%, #050706 100%);
+}
+
+.aurora-field,
+.reactor-core,
+.orbit-system,
+.energy-grid,
+.laser-stack,
+.data-rain,
+.particle-field,
+.vignette {
+  position: absolute;
+  inset: 0;
+}
+
+.aurora-field {
+  opacity: 0.92;
+  filter: saturate(1.2);
+  background:
+    radial-gradient(circle at 20% 24%, rgba(0, 255, 136, 0.25), transparent 22rem),
+    radial-gradient(circle at 82% 16%, rgba(123, 97, 255, 0.3), transparent 24rem),
+    radial-gradient(circle at 70% 74%, rgba(255, 77, 77, 0.13), transparent 26rem),
+    conic-gradient(from 140deg at 50% 50%, transparent, rgba(0, 255, 136, 0.09), transparent, rgba(123, 97, 255, 0.12), transparent);
+  animation: aurora-shift 18s ease-in-out infinite alternate;
+}
+
+.aurora-field::before,
+.aurora-field::after {
+  content: '';
+  position: absolute;
+  width: 58vmax;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(0, 255, 136, 0.18), transparent 58%),
+    radial-gradient(circle at 64% 42%, rgba(123, 97, 255, 0.16), transparent 42%);
+  filter: blur(18px);
+  mix-blend-mode: screen;
+}
+
+.aurora-field::before {
+  left: -18vmax;
+  top: 10vh;
+  animation: plasma-drift 16s ease-in-out infinite;
+}
+
+.aurora-field::after {
+  right: -20vmax;
+  bottom: -16vmax;
+  animation: plasma-drift 20s ease-in-out infinite reverse;
+}
+
+.reactor-core {
+  display: grid;
+  place-items: center;
+  opacity: 0.85;
+  mix-blend-mode: screen;
+}
+
+.reactor-core::before,
+.reactor-core::after,
+.reactor-core span {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+}
+
+.reactor-core::before {
+  width: min(62vw, 760px);
+  aspect-ratio: 1;
+  background:
+    radial-gradient(circle, rgba(240, 240, 240, 0.32) 0 2%, rgba(0, 255, 136, 0.34) 3% 9%, transparent 18%),
+    repeating-radial-gradient(circle, transparent 0 42px, rgba(0, 255, 136, 0.28) 43px 44px, transparent 45px 86px);
+  filter: blur(0.2px) drop-shadow(0 0 34px rgba(0, 255, 136, 0.42));
+  animation: reactor-pulse 3.6s ease-in-out infinite;
+}
+
+.reactor-core::after {
+  width: min(44vw, 540px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(123, 97, 255, 0.42);
+  border-inline-color: rgba(0, 255, 136, 0.68);
+  box-shadow:
+    inset 0 0 42px rgba(0, 255, 136, 0.16),
+    0 0 60px rgba(123, 97, 255, 0.24);
+  animation: reactor-spin 16s linear infinite;
+}
+
+.reactor-core span:nth-child(1) {
+  width: min(34vw, 410px);
+  aspect-ratio: 1;
+  border: 1px dashed rgba(0, 255, 136, 0.55);
+  animation: reactor-spin 10s linear infinite reverse;
+}
+
+.reactor-core span:nth-child(2) {
+  width: min(22vw, 280px);
+  aspect-ratio: 1;
+  background: conic-gradient(from 0deg, transparent, rgba(0, 255, 136, 0.34), transparent, rgba(255, 77, 77, 0.2), transparent);
+  mask-image: radial-gradient(circle, transparent 0 56%, #000 58% 64%, transparent 66%);
+  animation: reactor-spin 5.2s linear infinite;
+}
+
+.reactor-core span:nth-child(3) {
+  width: min(10vw, 132px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(240, 240, 240, 0.8), rgba(0, 255, 136, 0.48) 18%, transparent 62%);
+  filter: blur(8px);
+  animation: core-flash 1.8s ease-in-out infinite;
+}
+
+.orbit-system {
+  left: 50%;
+  top: 50%;
+  width: min(74vw, 920px);
+  height: min(74vw, 920px);
+  inset: auto;
+  border-radius: 50%;
+  opacity: 0.72;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+}
+
+.orbit-system span {
+  position: absolute;
+  inset: calc(var(--i) * 8%);
+  border: 1px solid rgba(240, 240, 240, 0.08);
+  border-top-color: rgba(0, 255, 136, 0.58);
+  border-right-color: rgba(123, 97, 255, 0.38);
+  border-radius: 50%;
+  animation: orbit-spin calc(12s + var(--i) * 4s) linear infinite;
+}
+
+.orbit-system span::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 18px rgba(0, 255, 136, 0.9), 0 0 38px rgba(123, 97, 255, 0.45);
+}
+
+.energy-grid {
+  opacity: 0.52;
+  background:
+    linear-gradient(rgba(0, 255, 136, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(123, 97, 255, 0.2) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+  transform: perspective(900px) rotateX(62deg) translateY(16vh) scale(1.28);
+  transform-origin: center bottom;
+  animation: grid-rush 3.8s linear infinite;
+}
+
+.energy-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.45), transparent);
+  transform: translateX(-120%);
+  animation: grid-scan 6s ease-in-out infinite;
+}
+
+.laser-stack span {
+  position: absolute;
+  left: -15vw;
+  top: calc(11% + var(--i) * 12%);
+  width: 130vw;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.7), rgba(123, 97, 255, 0.55), transparent);
+  box-shadow: 0 0 22px rgba(0, 255, 136, 0.55), 0 0 48px rgba(123, 97, 255, 0.22);
+  opacity: 0;
+  transform: rotate(calc(-10deg + var(--i) * 4deg)) translateX(-18%);
+  animation: laser-sweep 5.8s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.82s);
+}
+
+.data-rain {
+  opacity: 0.36;
+  mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 78%, transparent);
+}
+
+.data-rain span {
+  position: absolute;
+  top: -24vh;
+  left: calc(var(--i) * 5.88%);
+  width: 1px;
+  height: 26vh;
+  background:
+    linear-gradient(180deg, transparent, rgba(0, 255, 136, 0.78), rgba(240, 240, 240, 0.46), transparent),
+    repeating-linear-gradient(180deg, transparent 0 9px, rgba(0, 255, 136, 0.7) 10px 11px);
+  box-shadow: 0 0 16px rgba(0, 255, 136, 0.58);
+  transform: translateY(-30vh);
+  animation: data-drop calc(4.4s + var(--i) * 0.18s) linear infinite;
+  animation-delay: calc(var(--i) * -0.33s);
+}
+
+.particle-field span {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: calc(2px * var(--s));
+  height: calc(2px * var(--s));
+  border-radius: 50%;
+  background: rgba(240, 240, 240, 0.86);
+  box-shadow:
+    0 0 12px rgba(0, 255, 136, 0.74),
+    0 0 24px rgba(123, 97, 255, 0.36);
+  opacity: 0.42;
+  animation: particle-float 8s ease-in-out infinite;
+  animation-delay: var(--d);
+}
+
+.particle-field span:nth-child(3n) {
+  background: var(--green);
+}
+
+.particle-field span:nth-child(4n) {
+  width: 1px;
+  height: 34px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, rgba(0, 255, 136, 0.9), transparent);
+}
+
+.particle-field span:nth-child(5n) {
+  width: 5px;
+  height: 1px;
+  background: rgba(123, 97, 255, 0.9);
+  box-shadow: 0 0 18px rgba(123, 97, 255, 0.76);
+}
+
+.vignette {
+  background:
+    radial-gradient(circle at center, transparent 0 44%, rgba(5, 7, 6, 0.46) 78%, rgba(5, 7, 6, 0.9) 100%),
+    linear-gradient(180deg, rgba(5, 7, 6, 0.18), rgba(5, 7, 6, 0.58));
 }
 
 .cursor-layer {
@@ -1238,6 +1491,125 @@ h2,
   }
 }
 
+@keyframes aurora-shift {
+  from {
+    transform: translate3d(-2%, -1%, 0) scale(1);
+    filter: hue-rotate(0deg) saturate(1.16);
+  }
+  to {
+    transform: translate3d(2%, 1.5%, 0) scale(1.08);
+    filter: hue-rotate(22deg) saturate(1.35);
+  }
+}
+
+@keyframes plasma-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(12vw, -7vh, 0) scale(1.14);
+  }
+}
+
+@keyframes reactor-pulse {
+  0%,
+  100% {
+    opacity: 0.52;
+    transform: scale(0.94);
+  }
+  45% {
+    opacity: 0.95;
+    transform: scale(1.04);
+  }
+  62% {
+    opacity: 0.68;
+    transform: scale(0.98);
+  }
+}
+
+@keyframes reactor-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(calc(var(--i) * 24deg)) skew(0deg);
+  }
+  to {
+    transform: rotate(calc(360deg + var(--i) * 24deg)) skew(4deg);
+  }
+}
+
+@keyframes core-flash {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.82);
+  }
+  50% {
+    opacity: 0.92;
+    transform: scale(1.16);
+  }
+}
+
+@keyframes grid-rush {
+  to {
+    background-position: 0 72px, 72px 0;
+  }
+}
+
+@keyframes grid-scan {
+  0%,
+  55% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+@keyframes laser-sweep {
+  0%,
+  68%,
+  100% {
+    opacity: 0;
+    transform: rotate(calc(-10deg + var(--i) * 4deg)) translateX(-20%);
+  }
+  78% {
+    opacity: 0.86;
+  }
+  92% {
+    opacity: 0;
+    transform: rotate(calc(-10deg + var(--i) * 4deg)) translateX(16%);
+  }
+}
+
+@keyframes data-drop {
+  to {
+    transform: translateY(150vh);
+  }
+}
+
+@keyframes particle-float {
+  0%,
+  100% {
+    opacity: 0.16;
+    transform: translate3d(0, 0, 0) scale(0.78);
+  }
+  45% {
+    opacity: 0.82;
+    transform: translate3d(18px, -28px, 0) scale(1.22);
+  }
+}
+
 @keyframes flame-flicker {
   from {
     scale: 0.82 0.92;
@@ -1252,6 +1624,31 @@ h2,
 @media (max-width: 980px) {
   body {
     cursor: auto;
+  }
+
+  .background-fx {
+    opacity: 0.8;
+  }
+
+  .reactor-core {
+    opacity: 0.58;
+  }
+
+  .orbit-system {
+    width: 86vw;
+    height: 86vw;
+    opacity: 0.48;
+  }
+
+  .energy-grid {
+    background-size: 54px 54px;
+    transform: perspective(760px) rotateX(63deg) translateY(18vh) scale(1.4);
+  }
+
+  .laser-stack span:nth-child(n + 5),
+  .data-rain span:nth-child(n + 12),
+  .particle-field span:nth-child(n + 25) {
+    display: none;
   }
 
   .section {
@@ -1377,6 +1774,35 @@ h2,
     top: 9px;
     padding: 10px;
     gap: 8px;
+  }
+
+  .aurora-field {
+    opacity: 0.72;
+  }
+
+  .energy-grid {
+    opacity: 0.28;
+  }
+
+  .reactor-core {
+    opacity: 0.38;
+  }
+
+  .reactor-core::before {
+    width: 84vw;
+  }
+
+  .reactor-core::after,
+  .reactor-core span:nth-child(1) {
+    width: 64vw;
+  }
+
+  .orbit-system {
+    opacity: 0.28;
+  }
+
+  .laser-stack {
+    opacity: 0.7;
   }
 
   .nav-avatar {
