@@ -504,6 +504,7 @@ function Skills() {
 
 function Projects() {
   useEffect(() => {
+    if (window.innerWidth < 900 || window.matchMedia('(pointer: coarse)').matches) return;
     const cards = document.querySelectorAll('.tilt-card');
     let mounted = true;
     import('vanilla-tilt').then(({ default: VanillaTilt }) => {
@@ -607,6 +608,7 @@ function App() {
 
   useEffect(() => {
     if (reduced) return;
+    if (window.innerWidth < 760) return;
     let cleanup = () => {};
     const loadWhenIdle = window.requestIdleCallback || ((callback) => setTimeout(callback, 250));
     const idleId = loadWhenIdle(() => {
