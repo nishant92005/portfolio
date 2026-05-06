@@ -1,0 +1,26 @@
+{
+  "name": "nishant-sharma-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.17.10",
+    "@studio-freight/lenis": "^1.0.42",
+    "@vitejs/plugin-react": "^4.3.4",
+    "countup.js": "^2.8.0",
+    "framer-motion": "^11.15.0",
+    "gsap": "^3.12.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.171.0",
+    "vanilla-tilt": "^1.8.1",
+    "vite": "^6.0.7"
+  },
+  "devDependencies": {}
+}
